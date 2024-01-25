@@ -1,0 +1,86 @@
+﻿<Window x:Class="MonitorsApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MonitorsApp"
+        mc:Ignorable="d"
+        Title="MonitorsDesktopApp   Jakub Furs   148193" Height="720" Width="1280">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Producenci -->
+            <RowDefinition Height="Auto"/>
+            <!-- Monitory -->
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="10">
+            <!-- Kontener tabeli -->
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Sekcja filtrów i akcji -->
+                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
+                    <TextBlock Text="Producenci" FontSize="18" FontWeight="Bold" Margin="0,0,10,0"/>
+                    <TextBox x:Name="producerFilterBox" Width="200" Margin="0,0,5,0"
+                    Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+
+                <!-- Tabela producentów -->
+                <ListView Grid.Row="1" ItemsSource="{Binding Producers}" Margin="0,5">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}" Width="50"/>
+                            <GridViewColumn Header="Nazwa" DisplayMemberBinding="{Binding Name}" Width="200"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <!-- Przyciski akcji -->
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button Content="Dodaj Producenta" Command="{Binding AddProducerCommand}" Margin="0,5,5,0"/>
+                    <Button Content="Usuń Producenta" Command="{Binding DeleteProducerCommand}" Margin="0,5,5,0"/>
+                    <Button Content="Edytuj Producenta" Command="{Binding EditProducerCommand}" Margin="0,5,5,0"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1" Margin="10">
+            <StackPanel Orientation="Vertical" Margin="10">
+                <!-- Sekcja filtrów -->
+                <StackPanel Orientation="Horizontal" Margin="0,10">
+                    <TextBlock Text="Monitory" FontSize="18" FontWeight="Bold" Margin="0,0,10,0"/>
+                    <ComboBox Width="150" Margin="0,0,5,0"
+                  ItemsSource="{Binding FilterOptions}"
+                  SelectedItem="{Binding SelectedFilterOption}"/>
+                    <TextBox Width="200" Margin="0,0,5,0"
+                 Text="{Binding MonitorFilter, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Button Content="Filtruj" Command="{Binding FilterMonitorsCommand}"/>
+                </StackPanel>
+
+                <!-- Tabela monitorów -->
+                <ListView ItemsSource="{Binding Monitors}" Margin="0,5">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}" Width="50"/>
+                            <GridViewColumn Header="Producent" DisplayMemberBinding="{Binding Producer.Name}" Width="100"/>
+                            <GridViewColumn Header="Nazwa" DisplayMemberBinding="{Binding Name}" Width="100"/>
+                            <GridViewColumn Header="Częstotliwość Odświeżania (Hz)" DisplayMemberBinding="{Binding RefreshRate}" Width="150"/>
+                            <GridViewColumn Header="Rozmiar Ekranu (cale)" DisplayMemberBinding="{Binding ScreenSize}" Width="150"/>
+                            <GridViewColumn Header="Typ Matrycy" DisplayMemberBinding="{Binding Matrix}" Width="150"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <!-- Przyciski akcji -->
+                <StackPanel Orientation="Horizontal" Margin="0,10">
+                    <Button Content="Dodaj Monitor" Command="{Binding ShowAddMonitorFormCommand}" Margin="0,0,5,0"/>
+                    <Button Content="Usuń Monitor" Command="{Binding ShowDeleteMonitorFormCommand}" Margin="0,0,5,0"/>
+                    <Button Content="Edytuj Monitor" Command="{Binding ShowEditMonitorFormCommand}" Margin="0,0,5,0"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

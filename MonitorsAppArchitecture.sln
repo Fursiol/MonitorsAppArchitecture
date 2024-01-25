@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonitorsApp.BLC", "Monitors
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonitorsWebApp", "MonitorsWebApp\MonitorsWebApp.csproj", "{8994EF4B-C400-448D-97B3-9101F341DFF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitorsApp.DAOSQL", "MonitorsApp.DAOSQL\MonitorsApp.DAOSQL.csproj", "{462445E7-0BFE-439E-9C21-3DCB0DD90B3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonitorsApp.DAOSQL", "MonitorsApp.DAOSQL\MonitorsApp.DAOSQL.csproj", "{462445E7-0BFE-439E-9C21-3DCB0DD90B3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitorsDesktopApp", "MonitorsDesktopApp\MonitorsDesktopApp.csproj", "{9EDD7764-E916-416D-AFCE-AC07A93CC026}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{462445E7-0BFE-439E-9C21-3DCB0DD90B3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{462445E7-0BFE-439E-9C21-3DCB0DD90B3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{462445E7-0BFE-439E-9C21-3DCB0DD90B3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EDD7764-E916-416D-AFCE-AC07A93CC026}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EDD7764-E916-416D-AFCE-AC07A93CC026}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EDD7764-E916-416D-AFCE-AC07A93CC026}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EDD7764-E916-416D-AFCE-AC07A93CC026}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
