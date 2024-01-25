@@ -1,0 +1,246 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="table-container">
+    <div class="header-with-form">
+        <h2>Producenci</h2>
+        <form method="get">
+            <input type="text" name="producerFilter" value="@Model.ProducerFilter" placeholder="filtr" />
+            <input type="submit" value="Filtruj" />
+        </form>
+    </div>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nazwa</th>
+        </tr>
+        @foreach (var producent in Model.Producers)
+        {
+            <tr>
+                <td>@producent.ID</td>
+                <td>@producent.Name</td>
+            </tr>
+        }
+    </table>
+    <div class="table-actions">
+        <button type="button" onclick="showForm('add-producer-form')">Dodaj Producenta</button>
+        <button type="button" onclick="showForm('delete-producer-form')">Usuń Producenta</button>
+        <button type="button" onclick="showForm('edit-producer-form')">Edytuj Producenta</button>
+    </div>
+
+    <div id="add-producer-form" class="action-form" style="display:none;">
+        <form method="post" asp-page-handler="AddProducer">
+            <input type="text" name="ProducerName" placeholder="Nazwa producenta" />
+            <input type="submit" value="Dodaj Producenta" />
+        </form>
+    </div>
+
+    <div id="delete-producer-form" class="action-form" style="display:none;">
+        <form method="post" asp-page-handler="DeleteProducer">
+            <select name="ProducerId">
+                @foreach (var producer in Model.Producers)
+                {
+                    <option value="@producer.ID">@producer.Name</option>
+                }
+            </select>
+            <input type="submit" value="Usuń Producenta" />
+        </form>
+    </div>
+
+    <div id="edit-producer-form" class="action-form" style="display:none;">
+        <form method="post" asp-page-handler="EditProducer">
+            <select name="ProducerId">
+                @foreach (var producer in Model.Producers)
+                {
+                    <option value="@producer.ID">@producer.Name</option>
+                }
+            </select>
+            <input type="text" name="NewName" placeholder="Nowa nazwa producenta" />
+            <input type="submit" value="Zapisz zmiany" />
+        </form>
+    </div>
+</div>
+
+<div class="header-with-form">
+    <h2>Monitory</h2>
+    <form method="get">
+        <select name="filterType">
+            <option value=""></option>
+            <option value="producer">Producent</option>
+            <option value="name">Model</option>
+            <option value="size">Rozmiar Ekranu</option>
+            <option value="rate">Częstotliwość odświeżania</option>
+            <option value="matrix">Typ Matrycy</option>
+        </select>
+        <input type="text" name="monitorFilter" value="@Model.MonitorFilter" placeholder="filtr" />
+        <input type="submit" value="Filtruj" />
+    </form>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Producent</th>
+            <th>Model</th>
+            <th>Częstotliwość Odświeżania (Hz)</th>
+            <th>Rozmiar Ekranu (cale)</th>
+            <th>Rodzaj matrycy</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var monitor in Model.Monitors)
+        {
+            <tr>
+                <td>@monitor.ID</td>
+                <td>@monitor.Producer.Name</td>
+                <td>@monitor.Name</td>
+                <td>@monitor.RefreshRate</td>
+                <td>@monitor.ScreenSize</td>
+                <td>@monitor.Matrix</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="table-actions">
+    <button type="button" onclick="showForm('add-monitor-form')">Dodaj Monitor</button>
+    <button type="button" onclick="showForm('delete-monitor-form')">Usuń Monitor</button>
+    <button type="button" onclick="showForm('edit-monitor-form')">Edytuj Monitor</button>
+</div>
+
+<div id="add-monitor-form" class="action-form" style="display:none;">
+    <form method="post" asp-page-handler="AddMonitor">
+        <input type="text" name="MonitorName" placeholder="Nazwa monitora" />
+
+        <select name="ProducerId">
+            @foreach (var producer in Model.Producers)
+            {
+                <option value="@producer.ID">@producer.Name</option>
+            }
+        </select>
+
+        <input type="number" name="RefreshRate" placeholder="Częstotliwość odświeżania" />
+        <input type="number" name="ScreenSize" placeholder="Rozmiar ekranu" />
+
+        <select name="MatrixTypeId">
+            @foreach (var matrixType in Enum.GetValues(typeof(MonitorsApp.Core.MatrixType)))
+            {
+                <option value="@((int)matrixType)">@matrixType.ToString()</option>
+            }
+        </select>
+
+        <input type="submit" value="Dodaj Monitor" />
+    </form>
+
+</div>
+
+<div id="delete-monitor-form" class="action-form" style="display:none;">
+    <form method="post" asp-page-handler="DeleteMonitor">
+        <select name="MonitorId">
+            @foreach (var monitor in Model.Monitors)
+            {
+                <option value="@monitor.ID">@monitor.Name</option>
+            }
+        </select>
+        <input type="submit" value="Usuń Monitor" />
+    </form>
+</div>
+
+<div id="edit-monitor-form" class="action-form" style="display:none;">
+    <form method="post" asp-page-handler="EditMonitor">
+        <select id="monitor-select" name="MonitorId" onchange="loadMonitorData()">
+            <option value="">Wybierz monitor</option>
+            @foreach (var monitor in Model.Monitors)
+            {
+                <option value="@monitor.ID">@monitor.Name</option>
+            }
+        </select>
+
+        <select name="ProducerId">
+            @foreach (var producer in Model.Producers)
+            {
+                <option value="@producer.ID">@producer.Name</option>
+            }
+        </select>
+
+        <input type="text" name="MonitorName" placeholder="Nazwa monitora" />
+        <input type="number" name="RefreshRate" placeholder="Częstotliwość odświeżania" />
+        <input type="number" name="ScreenSize" placeholder="Rozmiar ekranu" />
+
+        <select name="MatrixTypeId">
+            @foreach (var matrixType in Enum.GetValues(typeof(MonitorsApp.Core.MatrixType)))
+            {
+                <option value="@((int)matrixType)">@matrixType.ToString()</option>
+            }
+        </select>
+
+        <input type="submit" value="Zapisz zmiany" />
+    </form>
+
+</div>
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    .header-with-form {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .header-with-form form {
+        margin-left: 20px;
+    }
+    .table-container {
+        margin-bottom: 30px;
+    }
+    .table-actions {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+</style>
+
+<script>
+    function showForm(formId) {
+
+        if(document.getElementById(formId).style.display == 'block'){
+            document.getElementById(formId).style.display = 'none';
+        }
+        else{
+            document.querySelectorAll('.action-form').forEach(function (form) {
+                form.style.display = 'none';
+            });
+
+            document.getElementById(formId).style.display = 'block';
+        }
+
+        var monitorsData = @Html.Raw(Json.Serialize(Model.Monitors));
+
+        function loadMonitorData() {
+            var selectedMonitorId = document.getElementById('monitor-select').value;
+            var monitor = monitorsData.find(m => m.id.toString() === selectedMonitorId);
+
+            if (monitor) {
+                document.querySelector('[name="MonitorName"]').value = monitor.name;
+                document.querySelector('[name="ScreenSize"]').value = monitor.screenSize;
+                document.querySelector('[name="RefreshRate"]').value = monitor.refreshRate;
+                document.querySelector('[name="ProducerId"]').value = monitor.producer.id;
+                document.querySelector('[name="MatrixTypeId"]').value = monitor.matrixTypeId;
+            }
+        }
+    }
+</script>
+
+

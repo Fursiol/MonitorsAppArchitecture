@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34202.233
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonitorsApp.Core", "MonitorsApp.Core\MonitorsApp.Core.csproj", "{52AEB35D-2AC6-4163-9E31-5CADF1F66FDF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonitorsApp.Interfaces", "MonitorsApp.Interfaces\MonitorsApp.Interfaces.csproj", "{BDCC00FF-BB3A-4A91-A322-8C7C3845EAA4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonitorsApp.DAOMock", "MonitorsApp.DAOMock\MonitorsApp.DAOMock.csproj", "{F50BA778-BD48-4D9B-BFBA-3C2D1BBAD047}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonitorsApp.BLC", "MonitorsApp.BLC\MonitorsApp.BLC.csproj", "{1D844DD7-9B67-4008-94BE-C3B507386D5E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonitorsWebApp", "MonitorsWebApp\MonitorsWebApp.csproj", "{8994EF4B-C400-448D-97B3-9101F341DFF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitorsApp.DAOSQL", "MonitorsApp.DAOSQL\MonitorsApp.DAOSQL.csproj", "{462445E7-0BFE-439E-9C21-3DCB0DD90B3C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{52AEB35D-2AC6-4163-9E31-5CADF1F66FDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52AEB35D-2AC6-4163-9E31-5CADF1F66FDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52AEB35D-2AC6-4163-9E31-5CADF1F66FDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52AEB35D-2AC6-4163-9E31-5CADF1F66FDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDCC00FF-BB3A-4A91-A322-8C7C3845EAA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDCC00FF-BB3A-4A91-A322-8C7C3845EAA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDCC00FF-BB3A-4A91-A322-8C7C3845EAA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDCC00FF-BB3A-4A91-A322-8C7C3845EAA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F50BA778-BD48-4D9B-BFBA-3C2D1BBAD047}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F50BA778-BD48-4D9B-BFBA-3C2D1BBAD047}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F50BA778-BD48-4D9B-BFBA-3C2D1BBAD047}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F50BA778-BD48-4D9B-BFBA-3C2D1BBAD047}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D844DD7-9B67-4008-94BE-C3B507386D5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D844DD7-9B67-4008-94BE-C3B507386D5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D844DD7-9B67-4008-94BE-C3B507386D5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D844DD7-9B67-4008-94BE-C3B507386D5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8994EF4B-C400-448D-97B3-9101F341DFF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8994EF4B-C400-448D-97B3-9101F341DFF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8994EF4B-C400-448D-97B3-9101F341DFF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8994EF4B-C400-448D-97B3-9101F341DFF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{462445E7-0BFE-439E-9C21-3DCB0DD90B3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{462445E7-0BFE-439E-9C21-3DCB0DD90B3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{462445E7-0BFE-439E-9C21-3DCB0DD90B3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{462445E7-0BFE-439E-9C21-3DCB0DD90B3C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7C05FF18-0ABF-430D-8170-CC59FCF2CCCA}
+	EndGlobalSection
+EndGlobal
