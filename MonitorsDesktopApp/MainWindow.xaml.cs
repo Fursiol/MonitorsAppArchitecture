@@ -18,9 +18,6 @@ using MonitorsApp.BLC;
 
 namespace MonitorsApp
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private readonly ProducersViewModel _viewModel;

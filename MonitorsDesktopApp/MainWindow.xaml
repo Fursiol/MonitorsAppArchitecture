@@ -6,62 +6,87 @@
         xmlns:local="clr-namespace:MonitorsApp"
         mc:Ignorable="d"
         Title="MonitorsDesktopApp   Jakub Furs   148193" Height="720" Width="1280">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <!-- Producenci -->
-            <RowDefinition Height="Auto"/>
-            <!-- Monitory -->
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Margin="10">
-            <!-- Kontener tabeli -->
-            <Grid Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-
-                <!-- Sekcja filtrów i akcji -->
-                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
-                    <TextBlock Text="Producenci" FontSize="18" FontWeight="Bold" Margin="0,0,10,0"/>
-                    <TextBox x:Name="producerFilterBox" Width="200" Margin="0,0,5,0"
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Margin="10">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock Text="Producenci" FontSize="18" FontWeight="Bold" Margin="0,0,10,0"/>
+                        <TextBox x:Name="producerFilterBox" Width="200" Margin="0,0,5,0"
                     Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                    <ListView Grid.Row="1" ItemsSource="{Binding Producers}" Margin="0,5">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}" Width="50"/>
+                                <GridViewColumn Header="Nazwa" DisplayMemberBinding="{Binding Name}" Width="200"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button Content="Dodaj Producenta" Command="{Binding ShowAddProducerFormCommand}" Margin="0,5,5,0"/>
+                    <Button Content="Usuń Producenta" Command="{Binding ShowDeleteProducerFormCommand}" Margin="0,5,5,0"/>
+                    <Button Content="Edytuj Producenta" Command="{Binding ShowEditProducerFormCommand}" Margin="0,5,5,0"/>
                 </StackPanel>
-
-                <!-- Tabela producentów -->
-                <ListView Grid.Row="1" ItemsSource="{Binding Producers}" Margin="0,5">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}" Width="50"/>
-                            <GridViewColumn Header="Nazwa" DisplayMemberBinding="{Binding Name}" Width="200"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-
-                <!-- Przyciski akcji -->
-                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Button Content="Dodaj Producenta" Command="{Binding AddProducerCommand}" Margin="0,5,5,0"/>
-                    <Button Content="Usuń Producenta" Command="{Binding DeleteProducerCommand}" Margin="0,5,5,0"/>
-                    <Button Content="Edytuj Producenta" Command="{Binding EditProducerCommand}" Margin="0,5,5,0"/>
+                <StackPanel Grid.Row="3" Name="addProducerForm" Visibility="{Binding AddProducerFormVisibility}" Margin="10" HorizontalAlignment="Left">
+                    <TextBlock Text="Dodaj producenta" FontSize="18" FontWeight="Bold" Margin="0,0,10,10"/>
+                    <TextBlock Text="Nazwa" FontSize="14" FontWeight="Bold" Margin="0,0,0,0"/>
+                    <TextBox Text="{Binding NewProducerName, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+                    <Button Content="Dodaj" Command="{Binding AddProducerCommand}" Width="100" Margin="0,10,0,0"/>
+                </StackPanel>
+                <StackPanel Grid.Row="4" Name="deleteProducerForm" Visibility="{Binding DeleteProducerFormVisibility}" Margin="10" HorizontalAlignment="Left">
+                    <TextBlock Text="Usuń producenta" FontSize="18" FontWeight="Bold" Margin="0,0,10,10"/>
+                    <ComboBox x:Name="deleteProducerComboBox" DisplayMemberPath="Name" SelectedItem="{Binding SelectedProducer, Mode=TwoWay}"
+                                ItemsSource="{Binding Producers}" Width="200" Margin="0,0,0,0"/>
+                    <Button Content="Usuń" Command="{Binding DeleteProducerCommand}" Width="100" Margin="0,10,0,0"/>
+                </StackPanel>
+                <StackPanel Grid.Row="5"  x:Name="editProducerForm" Visibility="{Binding EditProducerFormVisibility}" Margin="10" HorizontalAlignment="Left">
+                    <TextBlock Text="Edytuj producenta" FontSize="18" FontWeight="Bold" Margin="0,0,10,10"/>
+                    <ComboBox x:Name="editProducerComboBox" DisplayMemberPath="Name" SelectedValuePath="ID"
+                                ItemsSource="{Binding Producers}" SelectedItem="{Binding SelectedProducer}"
+                                Width="200" Margin="0,0,0,0"/>
+                    <TextBlock Text="Nowa nazwa" FontSize="14" FontWeight="Bold" Margin="0,10,0,0"/>
+                    <TextBox x:Name="editProducerNameTextBox" Width="200" Margin="0,0,0,0"
+                                Text="{Binding NewProducerName, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Button Content="Edytuj" Command="{Binding EditProducerCommand}" Width="100" Margin="0,10,0,0"/>
                 </StackPanel>
             </Grid>
         </Grid>
         <Grid Grid.Row="1" Margin="10">
-            <StackPanel Orientation="Vertical" Margin="10">
-                <!-- Sekcja filtrów -->
-                <StackPanel Orientation="Horizontal" Margin="0,10">
-                    <TextBlock Text="Monitory" FontSize="18" FontWeight="Bold" Margin="0,0,10,0"/>
-                    <ComboBox Width="150" Margin="0,0,5,0"
-                  ItemsSource="{Binding FilterOptions}"
-                  SelectedItem="{Binding SelectedFilterOption}"/>
-                    <TextBox Width="200" Margin="0,0,5,0"
-                 Text="{Binding MonitorFilter, UpdateSourceTrigger=PropertyChanged}"/>
-                    <Button Content="Filtruj" Command="{Binding FilterMonitorsCommand}"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0"  Orientation="Horizontal" Margin="0,10">
+                    <TextBlock Text="Monitory:" FontSize="18" FontWeight="Bold" Margin="0,0,10,0"/>
+                    <ComboBox x:Name="monitorFilterComboBox" Width="150" Margin="0,0,5,0" SelectedValuePath="Content"
+                                SelectedValue="{Binding SelectedMonitorFilterOption, UpdateSourceTrigger=PropertyChanged}" >
+                        <ComboBoxItem Content="Nazwa producenta"/>
+                        <ComboBoxItem Content="Nazwa monitora"/>
+                        <ComboBoxItem Content="Częstotliwość odświeżania"/>
+                        <ComboBoxItem Content="Przekątna ekranu"/>
+                        <ComboBoxItem Content="Typ matrycy"/>
+                    </ComboBox>
+                    <TextBox x:Name="monitorFilterTextBox" Width="200" Margin="0,0,5,0"
+                                Text="{Binding MonitorFilter, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
-
-                <!-- Tabela monitorów -->
-                <ListView ItemsSource="{Binding Monitors}" Margin="0,5">
+                <ListView Grid.Row="1" ItemsSource="{Binding Monitors}" Margin="0,5">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}" Width="50"/>
@@ -74,13 +99,64 @@
                     </ListView.View>
                 </ListView>
 
-                <!-- Przyciski akcji -->
-                <StackPanel Orientation="Horizontal" Margin="0,10">
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10">
                     <Button Content="Dodaj Monitor" Command="{Binding ShowAddMonitorFormCommand}" Margin="0,0,5,0"/>
                     <Button Content="Usuń Monitor" Command="{Binding ShowDeleteMonitorFormCommand}" Margin="0,0,5,0"/>
                     <Button Content="Edytuj Monitor" Command="{Binding ShowEditMonitorFormCommand}" Margin="0,0,5,0"/>
                 </StackPanel>
+
+            <StackPanel Grid.Row="3" x:Name="addMonitorForm" Visibility="{Binding AddMonitorFormVisibility}"  Margin="10" HorizontalAlignment="Left">
+                <TextBlock Text="Dodaj nowy monitor" FontSize="18" FontWeight="Bold" Margin="0,0,10,10"/>
+                <TextBlock Text="Producent" FontSize="14" FontWeight="Bold" Margin="0,10,0,0"/>
+                <ComboBox DisplayMemberPath="Name" SelectedItem="{Binding SelectedProducer}"
+                        ItemsSource="{Binding Producers}" Width="200" Margin="0,0,0,10"/>
+                <TextBlock Text="Nazwa" FontSize="14" FontWeight="Bold" Margin="0,10,0,0"/>
+                <TextBox  Text="{Binding NewMonitorName}" Width="200" Margin="0,0,0,10"/>
+                <TextBlock Text="Częstotilowść odświeżania" FontSize="14" FontWeight="Bold" Margin="0,10,0,0"/>
+                <TextBox Text="{Binding NewMonitorRefreshRate}" Width="200" Margin="0,0,0,10"/>
+                <TextBlock Text="Przekątna ekranu" FontSize="14" FontWeight="Bold" Margin="0,10,0,0"/>
+                <TextBox Text="{Binding NewMonitorScreenSize}" Width="200" Margin="0,0,0,10"/>
+                <TextBlock Text="Typ matrycy" FontSize="14" FontWeight="Bold" Margin="0,10,0,0"/>
+                <ComboBox SelectedValue="{Binding NewMonitorMatrixType}" Width="200" Margin="0,0,0,10"  SelectedValuePath="Content">
+                    <ComboBoxItem Content="IPS"/>
+                    <ComboBoxItem Content="VA"/>
+                    <ComboBoxItem Content="OLED"/>
+                </ComboBox>
+
+                <Button Content="Dodaj" Command="{Binding AddMonitorCommand}" Width="100" Margin="0,10,0,0"/>
             </StackPanel>
-        </Grid>
+            <StackPanel Grid.Row="4" x:Name="deleteMonitorForm" Visibility="{Binding DeleteMonitorFormVisibility}" Margin="10" HorizontalAlignment="Left">
+                <TextBlock Text="Usuń monitor" FontSize="18" FontWeight="Bold" Margin="0,0,10,10"/>
+                <TextBlock Text="Wybierz model" FontSize="14" FontWeight="Bold" Margin="0,10,0,0"/>
+                <ComboBox DisplayMemberPath="Name" SelectedValuePath="ID"
+              SelectedItem="{Binding SelectedMonitorForDeletion}"
+              ItemsSource="{Binding Monitors}" Width="200" Margin="0,0,0,10"/>
+                <Button Content="Usuń" Command="{Binding DeleteMonitorCommand}" Width="100" Margin="0,10,0,0"/>
+            </StackPanel>
+                <StackPanel Grid.Row="5" x:Name="editMonitorForm" Visibility="{Binding EditMonitorFormVisibility}"  Margin="10" HorizontalAlignment="Left">
+                    <TextBlock Text="Edytuj monitor" FontSize="18" FontWeight="Bold" Margin="0,0,10,10"/>
+                    <TextBlock Text="Wybierz model do edycji" FontSize="14" FontWeight="Bold" Margin="0,10,0,0"/>
+                    <ComboBox DisplayMemberPath="Name" SelectedValuePath="ID"
+                            SelectedItem="{Binding SelectedMonitorForEdition}"
+                            ItemsSource="{Binding Monitors}" Width="200" Margin="0,0,0,10"/>
+                    <TextBlock Text="Producent" FontSize="14" FontWeight="Bold" Margin="0,10,0,0"/>
+                    <ComboBox x:Name="editMonitorProducerComboBox" DisplayMemberPath="Name" SelectedItem="{Binding SelectedProducer, Mode=TwoWay}"
+            ItemsSource="{Binding Producers}" Width="200" Margin="0,0,0,0"/>
+                    <TextBlock Text="Nowa nazwa modelu " FontSize="14" FontWeight="Bold" Margin="0,10,0,0"/>
+                    <TextBox Text="{Binding SelectedMonitorForEditionName, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="0,0,0,10"/>
+                    <TextBlock Text="Nowa częstotliwość odświeżania" FontSize="14" FontWeight="Bold" Margin="0,10,0,0"/>
+                    <TextBox Text="{Binding SelectedMonitorForEditionRefreshRate, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="0,0,0,10"/>
+                    <TextBlock Text="Nowa przekątna ekranu" FontSize="14" FontWeight="Bold" Margin="0,10,0,0"/>
+                    <TextBox Text="{Binding SelectedMonitorForEditionScreenSize, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="0,0,0,10"/>
+                    <TextBlock Text="Nowy typ matrycy" FontSize="14" FontWeight="Bold" Margin="0,10,0,0"/>
+                    <ComboBox SelectedValue="{Binding EditMonitorMatrixType}" Width="200" Margin="0,0,0,10"  SelectedValuePath="Content">
+                        <ComboBoxItem Content="IPS"/>
+                        <ComboBoxItem Content="VA"/>
+                        <ComboBoxItem Content="OLED"/>
+                    </ComboBox>
+                    <Button Content="Zapisz zmiany" Command="{Binding EditMonitorCommand}" Width="100" Margin="0,10,0,0"/>
+                </StackPanel>
+            </Grid>
     </Grid>
+    </ScrollViewer>
 </Window>
